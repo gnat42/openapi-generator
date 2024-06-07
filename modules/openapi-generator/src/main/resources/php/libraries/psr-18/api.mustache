@@ -57,42 +57,42 @@ use function sprintf;
     /**
      * @var PluginClient
      */
-    protected $httpClient;
+    protected PluginClient $httpClient;
 
     /**
      * @var PluginClient
      */
-    protected $httpAsyncClient;
+    protected PluginClient $httpAsyncClient;
 
     /**
      * @var UriFactoryInterface
      */
-    protected $uriFactory;
+    protected UriFactoryInterface $uriFactory;
 
     /**
      * @var Configuration
      */
-    protected $config;
+    protected Configuration $config;
 
     /**
      * @var HeaderSelector
      */
-    protected $headerSelector;
+    protected HeaderSelector $headerSelector;
 
     /**
      * @var int Host index
      */
-    protected $hostIndex;
+    protected int $hostIndex;
 
     /**
      * @var RequestFactoryInterface
      */
-    protected $requestFactory;
+    protected RequestFactoryInterface $requestFactory;
 
     /**
      * @var StreamFactoryInterface
      */
-    protected $streamFactory;
+    protected StreamFactoryInterface $streamFactory;
 
     public function __construct(
         ClientInterface $httpClient = null,

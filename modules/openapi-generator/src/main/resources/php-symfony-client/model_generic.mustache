@@ -1,0 +1,48 @@
+class {{classname}} {{#parentSchema}}extends {{{parent}}} {{/parentSchema}}
+{
+    {{#vars}}{{>model_variables}}
+    {{/vars}}
+
+    public function __construct({{#vars}}{{#required}}{{dataType}} ${{baseName}}{{^vendorExtensions.x-last-var}}, {{/vendorExtensions.x-last-var}}{{/required}}{{/vars}})
+    {
+        {{#vars}}
+        {{#required}}
+        $this->{{name}} = ${{name}};
+        {{/required}}
+        {{/vars}}
+    }
+
+    {{#vars}}
+    public function {{getter}}(){{#vendorExtensions.x-parameter-type}}: {{vendorExtensions.x-parameter-type}}{{/vendorExtensions.x-parameter-type}}
+    {
+        return $this->{{name}};
+    }
+
+    {{#isEnumRef}}
+    public function getSerialized{{nameInPascalCase}}(): string|null
+    {
+        return $this->{{name}}?->value ? (string) $this->{{name}}->value : null;
+    }
+
+    {{/isEnumRef}}
+    {{#isContainer}}
+    {{#items}}
+    {{#isEnumRef}}
+    public function getSerialized{{nameInPascalCase}}(): array
+    {
+        return array_map(
+            static fn ($value) => (string) $value->value,
+            $this->test ?? []
+        );
+    }
+
+    {{/isEnumRef}}
+    {{/items}}
+    {{/isContainer}}
+    public function {{setter}}({{#vendorExtensions.x-parameter-type}}{{vendorExtensions.x-parameter-type}} {{/vendorExtensions.x-parameter-type}}${{name}}{{^required}} = null{{/required}}): void
+    {
+        $this->{{name}} = ${{name}};
+    }
+
+    {{/vars}}
+}
